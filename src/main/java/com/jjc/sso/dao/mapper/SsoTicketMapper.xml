@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jjc.sso.dao.SsoTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.jjc.sso.po.SsoTicket" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="TICKET" property="ticket" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="VALIDATE_TIME" property="validateTime" jdbcType="INTEGER" />
+    <result column="TICKET_TYPE" property="ticketType" jdbcType="CHAR" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TICKET, CREATE_TIME, VALIDATE_TIME, TICKET_TYPE, USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sso_ticket
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sso_ticket
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jjc.sso.po.SsoTicket" >
+    insert into sso_ticket (ID, TICKET, CREATE_TIME, 
+      VALIDATE_TIME, TICKET_TYPE, USER_ID
+      )
+    values (#{id,jdbcType=INTEGER}, #{ticket,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{validateTime,jdbcType=INTEGER}, #{ticketType,jdbcType=CHAR}, #{userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jjc.sso.po.SsoTicket" >
+    insert into sso_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="ticket != null" >
+        TICKET,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="validateTime != null" >
+        VALIDATE_TIME,
+      </if>
+      <if test="ticketType != null" >
+        TICKET_TYPE,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ticket != null" >
+        #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validateTime != null" >
+        #{validateTime,jdbcType=INTEGER},
+      </if>
+      <if test="ticketType != null" >
+        #{ticketType,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jjc.sso.po.SsoTicket" >
+    update sso_ticket
+    <set >
+      <if test="ticket != null" >
+        TICKET = #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validateTime != null" >
+        VALIDATE_TIME = #{validateTime,jdbcType=INTEGER},
+      </if>
+      <if test="ticketType != null" >
+        TICKET_TYPE = #{ticketType,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jjc.sso.po.SsoTicket" >
+    update sso_ticket
+    set TICKET = #{ticket,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      VALIDATE_TIME = #{validateTime,jdbcType=INTEGER},
+      TICKET_TYPE = #{ticketType,jdbcType=CHAR},
+      USER_ID = #{userId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPhoneCode" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    FROM sso_ticket WHERE  USER_ID = #{userId} ORDER BY  CREATE_TIME DESC  LIMIT 1
+  </select>
+
+  <select id="selectByUUID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sso_ticket
+    where TICKET = #{uuid,jdbcType=INTEGER}
+  </select>
+
+
+</mapper>

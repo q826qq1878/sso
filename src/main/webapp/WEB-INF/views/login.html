@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="resources/css/public.css" type="text/css">
+    <link href="resources/css/loginV2.css" rel="stylesheet" type="text/css" />
+    <title>#if($!portal.pageTitle) $!portal.pageTitle #else登录页面#end</title>
+</head>
+<body>
+   <!-- header -->
+   <header class="all_header">
+       <div class="our_website" ><p id="pageName">单点登录</p></div>
+   </header>
+   <!-- content -->
+   <section class="content_box">
+       <!-- <h4 class="title_big">登录Iambuyer</h4> -->
+       <div class="AccountShow" id="AccountShow">
+           <!-- 登录 -->
+           <form id="val_acclogin" action="login" method="post">
+	           <div class="content_ys content_login">
+	               <div class="input_item">
+	                   <p class="input_tips">手机号／邮箱／账户名</p>
+	                   <span class="error_tips error_tips0" id="logninUsers_"></span>
+	                   <input type="text" class="input input_white loginUser" id='loginUser' name='loginUser' value="手机号／邮箱／账户名" onkeyup="LOGINUSER();">
+					   <input type="hidden" value="$!ReturnURL" name="ReturnURL" >
+	               </div>
+	               <div class="input_item">
+	                   <p class="input_tips">密码</p>
+	                   <span class="error_tips error_tips0" id="loginPass_"></span>
+	                   <input type="password" class="input input_white input_password loginPass" name='loginPass' id='loginPass' value="" style="display:none;" onkeyup="LOGINPASS();"/>
+	                   <input type="text" class="input input_white showPwd" value="请输入密码" id="password"/>                        
+	               </div>
+	               <div class="other_panel clearfix">
+	                   <span class="remebers fl">
+	                       <label class="cant-sel"><input class="btn_gray" type="checkbox" name="">记住我的登录状态</label>
+	                   </span>
+	                   <div class="forgets fr">
+	                       <a class="forget_link" onclick="account_password()">忘记密码？</a>
+	                   </div>
+	               </div>
+	               <div class="login_btn">
+	                   <input class="button_l" type="button" id="loginSubmit"  value="登录">
+	                   <p class="no_account">没有账户<a class="once_register" onclick="account_register()">立即注册</a></p>
+	               </div>
+	           </div> 
+	           <input type="hidden" value="$!loginUser" id="LonginUser">
+	           <input type="hidden" value="$!loginPass" id="LonginPass">
+
+
+	           <input type="hidden" value="false"  name="checkbox" id="checkbox">
+	       </form>
+           <!-- 注册 -->
+           <form id="val_accReg" action="login" method="post">
+	           <div class="content_ys content_register">
+	               <div class="input_item">
+	                   <p class="input_tips">手机号</p>
+	                   <span class="error_tips error_tips0 display_a"></span>
+	                   <input type="text" class="input input_white RegPhone" id='phone' name="mobile" value="手机号" onkeyup="RegPhone();">                        
+	               </div>
+	               <div class="input_item" id='imgCode' >
+	                   <p class="input_tips">验证码</p>
+	                   <span class="error_tips error_tips0 display_b"></span>
+	                   <input type="text" class="input input_white" id='yzm_code' value="验证码" onkeyup="yzmCode();">
+	                   <img class="yzm_img" id="kaptchaImage" src="code">
+	               </div>
+	               <div class="input_item">
+	                   <p class="input_tips">短信验证码</p>
+	                   <span class="error_tips error_tips0 display_c"></span>
+	                   <input type="text" class="input input_white yzmcode getcode" id="yzmcode" value="短信验证码" onkeyup="sms();">
+	                   <span class="get_yzm " id="getcode0" style="color:#9d9d9d;">获取验证码</span>
+	               </div>
+<!-- 	               <div class="input_item">
+	                   <p class="input_tips">用户名</p>
+	                   <span class="error_tips error_tips0 display_f" ></span>
+	                   <input type="text" class="input input_white" id="username" name="username" value="用户名" onkeyup="zhuce();">                        
+	               </div> -->
+	               <div class="input_item">
+	                   <p class="input_tips">设置密码</p>
+	                   <span class="error_tips error_tips0 display_d"></span>
+	                   <input type="password" class="input input_white input_password" id="fir_pwd" type="password"  value="" style="display:none;" onkeyup="firPwd();"/>
+	                   <input type="text" class="input input_white showPwd"id="_fir_pwd"  value="设置密码"/>
+					   <input type="hidden" id='ReturnURL' value="$!ReturnURL" name="ReturnURL" >
+	               </div>
+	               <div class="input_item">
+	                   <p class="input_tips">确认密码</p>
+	                   <span class="error_tips error_tips0 display_e"></span>
+	                   <input type="password" class="input input_white input_password" id="two_pwd" type="password" value="" style="display:none;" onkeyup="password();"/>
+	                   <input type="text" class="input input_white showPwd" id="_two_pwd" value="确认密码">                        
+	               </div>
+	              <!--  <div class="other_panel agree" onclick="checkbox();">
+	                   <span class="remebers">
+	                       <label class="cant-sel"><input class="btn_gray" type="checkbox" name="">我已同意税小鸭的<a class="user_protocol" href="/index.php?m=Web&c=Index&a=xieyi">《用户协议》</a></label>
+	                   </span>
+	               </div> -->
+	               <div class="login_btn">
+	                   <input class="button_l" type="button" name="" id="phone_zhuce" value="注册">
+	                   <p class="no_account">已有账户<a class="once_register" onclick="account_login()">马上登录</a></p>
+	               </div>
+	           </div>
+           </form>     
+           <!-- 修改密码 -->  
+           <div class="content_ys content_password">
+               <div class="flow">
+                   <ul class="clearfix">
+                       <li class="flowitem addcolor fl">
+                           <a>1</a>
+                           <p class="p_p">身份验证</p>
+                       </li>
+                       <li class="flowitem fl">
+                           <a>2</a>
+                           <p class="p_p">重置密码</p>
+                           <p class="line"></p>
+                       </li>
+                   </ul>
+               </div>
+               <form id="val_phone" action="login">
+	               <div class="find_pasw" id="findPsw1">
+	                   <div class="input_item">
+	                       <p class="input_tips">手机号</p>
+	                       <span class="error_tips error_tips0" id="findPhone"></span>
+	                       <input type="text" class="input input_white userPhoneCheck" id='phone_' name='phone' oninput="SmsCodeVali();"  value="手机号" onkeyup="PHONE();">
+	                   </div>
+	                   <div class="input_item">
+	                       <p class="input_tips">验证码</p>
+	                       <span class="error_tips error_tips0" id="findYzm"></span>
+	                       <input type="text" class="input input_white" id='yzm_code_' name="login_passwd" oninput="SmsCodeVali();" value="验证码" onkeyup="LOGINPASSWD();">
+	                       <img class="yzm_img" src="code" id="kaptchaImage1">
+	                   </div>
+	                   <div class="input_item">
+	                       <p class="input_tips">短信验证码</p>
+	                       <span class="error_tips error_tips0" id="smsYZM"></span>
+	                       <input type="text" class="input input_white" id="phoneYZM" name="yzm_code" value="短信验证码" onkeyup="PHONEYZM();">
+	                       <span class="get_yzm" id="getcode" style="color:#9d9d9d;">获取验证码</span>
+	                   </div>
+	                   <div class="login_btn">
+	                       <input class="button_l" type="button" id="findPassword" disabled="disabled" name="" value="找回密码" onclick="get_passwprd();">
+	                   </div>                        
+	               </div>
+	               </form>
+	               <form action="login" id="val_psw">
+		               <div class="find_pasw find_pasw2" id="findPsw2">
+		                   <div class="input_item">
+		                       <p class="input_tips">设置密码</p>
+		                       <span class="error_tips error_tips0" id="setPassword"></span>
+		                       <input type="password" class="input input_white input_password " id='pass1' name='pass1' value="" style="display:none;" onkeyup="password1();"/>
+		                       <input type="text" class="input input_white showPwd" id='pass1_' value="设置密码"/>
+		                   </div>
+		                   <div class="input_item">
+		                       <p class="input_tips">确认密码</p>
+		                       <span class="error_tips error_tips0" id="yesPassword"></span>
+		                       <input type="password" class="input input_white input_password " id='pass2' name='pass2' value="" style="display:none;" onkeyup="password2();"/>
+		                       <input type="text" class="input input_white showPwd" id='pass2_' value="确认密码">
+							   <input type="hidden"  value="$!ReturnURL" name="ReturnURL" >
+		                   </div>
+		                   <div class="login_btn">
+		                       <input class="button_l" type="button" id="phoneSubmit02" disabled="disabled"  value="提交">
+		                   </div> 
+		               </div>
+	           		</form>
+               <p class="no_account"><a class="once_register pad_r" onclick="back_login()">返回登录</a><a class="once_register" onclick="back_register()">立即注册</a></p>
+           </div>       
+       </div>
+   </section>
+   <!-- footer -->
+   <div class="footer">  
+   </div>
+<script type="text/javascript">
+	var loginName = "登录";
+	var regName = "注册";
+	if("$!portal.logHeaderTitle" != ''){
+		loginName = "$!portal.logHeaderTitle";
+		regName = "$!portal.regHeaderTitle";
+	}
+</script>
+<script type="text/javascript" src="resources/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="resources/js/loginV2.js"></script>
+<script src="resources/plugins/validate/jquery.validate.min.js"></script>
+<script src="resources/plugins/validate/validate-methods.js"></script>
+<script src="resources/plugins/layer/2.4/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="resources/js/loginJS.js"></script>
+<script type="text/javascript">
+//注册js部分-----------------------------------------------------------------------------------------------
+var patrn=/^(?![0-9]+$)(?![a-zA-Z]+$)(?!([^(0-9a-zA-Z)]|[\(\)])+$)([^(0-9a-zA-Z)]|[\(\)]|[a-zA-Z]|[0-9]){0,180}$/;
+var edit_code = false;
+var Reg_Phone = false;
+var yzm_code = false;
+var fir_pwd1 = false;
+var two_pwd1 = false;
+var checked = false;
+//加上注册提交按钮限制
+function cancel(){
+	$("#phone_zhuce").removeClass("button_yes");
+	$("#phone_zhuce").attr("disabled",true); 
+}
+//去掉注册提交按钮限制
+function confirm(){
+	$("#phone_zhuce").addClass('button_yes'); 
+	$("#phone_zhuce").attr("disabled",false);
+}
+/* //判断是否同意用户协议
+function checkbox(){
+	if(checked){
+		if($(".btn_gray").is(":checked")){
+			checked=true;
+		}else{
+			checked=false;
+		}
+		zhuce();
+	}else{
+		if($(".btn_gray").is(":checked")){
+			checked=true;
+		}else{
+			checked=false;
+		}
+		zhuce();
+	}
+} */
+//判断所有内容是否完成调用按钮限制函数
+function zhuce(){
+	if(Reg_Phone){
+		if(edit_code){
+			if(yzm_code){
+					if(fir_pwd1){
+						if(two_pwd1){
+							/* if(checked){ */
+								confirm();
+							/* }else{
+								cancel();
+							} */
+						}else{
+							cancel();
+						}
+				}else
+					cancel();
+			}else
+				cancel();
+		}else
+			cancel();
+	}else
+		cancel();
+}
+//所有的input添加keyup时间触实时监控提交按钮
+$("#phone").keyup(function(){zhuce();});
+$("#yzm_code").keyup(function(){zhuce();});
+$("#fir_pwd").keyup(function(){zhuce();});
+$("#two_pwd").keyup(function(){zhuce();});
+$("#yzmcode").keyup(function(){zhuce();});
+//end
+//校验注册手机号
+$('#phone').on('blur', function(){
+	 var phones = $("#phone").val();
+	    var data = {phones:phones}
+	    if(phones == ''|| phones =='手机号'){
+	        $(".RegPhone").addClass('error1');
+	        $('.display_a').text("手机号码不能为空!");
+	        Reg_Phone = false;
+	        $("#phone").val('');
+	        zy();
+	        return false;
+	    }else if(!isPhone(phones)){
+	        $(".RegPhone").addClass('error1');
+	        $('.display_a').text("手机号码格式不正确,请重新输入!");
+	        Reg_Phone = false;
+	        zy();
+	        return false;
+	    }else{
+	        $(".RegPhone").removeClass("error1");
+	        jQuery.getJSON('userPhoneCheck?userPhone='+ phones ,"",function(d){
+	            if(d.ret != 200){
+	                $(".RegPhone").addClass('error1');
+	                $('.display_a').text("该手机号码已注册,请重新输入!");
+	                Reg_Phone = false;
+	                zy();
+	                return false;
+	            }else{
+	            	zhuce();
+	                Reg_Phone = true;
+	            	zy();
+	                $(".RegPhone").removeClass("error1");
+	                $('.display_a').text('');
+	                
+	            }
+	        });
+	        zhuce();
+	        zy();
+	        $('.display_a').text('');
+	    }
+});
+function RegPhone(){
+	$(".RegPhone").removeClass("error1");
+	$(".display_a").text('');
+	zhuce();
+}
+//校验注册验证码
+$('#yzm_code').on('blur', function(){
+	var editcode = $('#yzm_code').val();
+    if(editcode == '' || editcode=='验证码'){
+        $("#yzm_code").addClass('error1');
+        $('.display_b').text("图片验证码不能为空!");
+        $("#yzm_code").val('');
+        edit_code = false;
+        zy();
+        return false;
+    }else{
+        $("#yzm_code").removeClass("error1");
+        jQuery.getJSON("checkCode?code=" + editcode,"",function(d){
+            if(d.ret != 200){
+                $("#yzm_code").addClass('error1');
+                $('.display_b').text("图片验证码错误,请重新输入!");
+                edit_code = false;
+                zy();
+                return false;
+            }else{
+            	zhuce();
+            	$('.display_b').text('');
+            	edit_code = true;
+            	zy();
+            	$("#yzm_code").removeClass('error1');
+            }
+        });
+     }
+});
+function yzmCode(){
+	$('.display_b').text('');
+	$("#yzm_code").removeClass('error1');
+	zhuce();
+}
+//如果手机号正确和图像验证码正确取消获取验证码的限制
+function zy(){
+	if(Reg_Phone){
+		if(edit_code){
+			$("#getcode0").attr("onclick","fg_txt(1);");
+			$("#getcode0").css("color","#02C2A2");
+		}else{
+			$("#getcode0").removeAttr("onclick","");
+			$("#getcode0").css("color","#9d9d9d");
+		}
+	}else{
+		$("#getcode0").removeAttr("onclick","");
+		$("#getcode0").css("color","#9d9d9d");
+	}
+}
+//校验短信验证码
+$('#yzmcode').on('blur', function(){
+    var yzmcode = $("#yzmcode").val();
+    var datas = {yzmcode:yzmcode}
+    if(yzmcode == '' || yzmcode=='短信验证码'){
+        $(".yzmcode").addClass('error1');
+        $('.display_c').text("短信验证码不能为空!");
+        $('#yzmcode').val('');
+        yzm_code = false;
+        zy();
+        return false;
+    }else{
+    	zhuce();
+    	$(".yzmcode").removeClass('error1');
+    	yzm_code = true;
+        zy();
+    }
+});
+function sms(){
+	$('.display_c').text('');
+	$("#yzmcode").removeClass('error1');
+	zhuce();
+}
+function firPwd(){
+	$('.display_d').text('');
+	$("#fir_pwd").removeClass('error1');
+	zhuce();
+}
+function password(){
+	var fir_pwd = $("#fir_pwd").val();
+	var two_pwd = $("#two_pwd").val();
+	if(fir_pwd==two_pwd){
+		two_pwd1=true;
+		$('.display_e').text('');
+		$("#two_pwd").removeClass('error1');
+		zhuce();
+	}else{
+		two_pwd1=false;
+		zhuce();
+	}
+}
+//判断注册密码
+$('#fir_pwd').on('blur', function(){
+    var fir_pwd = $(this).val();
+    if(fir_pwd == ''){
+        $("#fir_pwd").addClass('error1');
+        $("#_fir_pwd").addClass('error1');
+        $('.display_d').text("密码不能为空!");
+        $("#fir_pwd").val('');
+        $("#_fir_pwd").val('');
+        fir_pwd1 = false;
+        return false;
+    }else if(!patrn.test(fir_pwd)){
+        $("#fir_pwd").addClass('error1');
+        $('.display_d').text("密码必须为拼音+数字组合,请重新输入!");
+        fir_pwd1 = false;
+        return false;
+    }else if(fir_pwd.length < 6 || fir_pwd.length>18){
+        $("#fir_pwd").addClass('error1');
+        $('.display_d').text("密码长度必须为6-18位!");
+        fir_pwd1 = false;
+        return false;
+    }else{
+    	zhuce();
+        $("#fir_pwd").removeClass("error1");
+        fir_pwd1 = true;
+        $(".display_d").text('');
+    }
+});
+//判断第二次输入的注册密码
+$('#two_pwd').on('blur', function(){
+    var fir_pwd = $("#fir_pwd").val();
+    var two_pwd = $(this).val();
+    if(two_pwd=='' || two_pwd=='确认密码'){
+    	$("#two_pwd").addClass('error1');
+    	$("#_two_pwd").addClass('error1');
+        $(".display_e").text("确认密码不能为空!");
+        $("#_two_pwd").val('');
+        two_pwd1 = false;
+        return false;
+    }else{
+	    if(two_pwd != fir_pwd){
+	        $("#two_pwd").addClass('error1');
+	        $(".display_e").text("两次密码输入不一致!");
+	        two_pwd1 = false;
+	        return false;
+	    }else{
+	        $("#two_pwd").removeClass("error1");
+	        two_pwd1 = true;
+	        $(".display_e").text('');
+	    }
+    }
+   
+});
+$("#phone_zhuce").click(function(){
+    if(edit_code && Reg_Phone && yzm_code && fir_pwd1 && two_pwd1){
+        var registerCodeURL = "register?code="+$("#yzmcode").val();
+        //拼接注册信息
+        var json = {"mobile" : $("#phone").val() ,"username": $("#phone").val(), "password" : $("#fir_pwd").val() };
+        //提交表单
+        jQuery.ajax({
+            type:"post",
+            data:JSON.stringify(json),
+            dataType:"json",
+            contentType:'application/json',
+            async: false,
+            url:registerCodeURL,
+            success:function(data){
+                if(data.ret == "200"){
+                    layer.open({
+                        content: '恭喜您注册成功🎉,马上登陆试试看吧',
+                        yes: function(index, layero){
+                             window.location.href = 'login?ReturnURL=$!ReturnURL';
+                        },
+                        cancel: function(index, layero){
+                            window.location.href = 'login?ReturnURL=$!ReturnURL';
+                        }
+                    });
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                	return ;
+                }
+            }
+        });
+    }else{
+        return false;
+    }
+});
+
+//---------------------------------注册js   end--------------------------------
+
+
+
+//找回密码js部分-----------------------------------------------------------------------------------------------
+//判断两次输入的密码是否一致
+var pass1=false;
+var pass2=false;
+function password1(){
+	 $("#pass1").removeClass("error1");
+     $("#setPassword").text('');
+}
+function password2(){
+	$("#pass2").removeClass("error1");
+    $("#yesPassword").text('');
+	var pass =$("#pass1").val();
+	var pass_ =$("#pass2").val();
+	if($("#setPassword").text()=='' && pass!='' && pass==pass_){
+		pass1=true;
+		pass2=true;
+		$('#phoneSubmit02').attr("disabled",false); 
+		$('#phoneSubmit02').addClass('button_yes'); 
+	}
+}
+function pass(){
+	if(pass1){
+		if(pass2){
+			$("#phoneSubmit02").addClass('button_yes'); 
+			$("#phoneSubmit02").attr("disabled",false);
+		}else{
+			$("#phoneSubmit02").removeClass("button_yes");
+			$("#phoneSubmit02").attr("disabled",true); 
+		}
+	}else{
+		$("#phoneSubmit02").removeClass("button_yes");
+		$("#phoneSubmit02").attr("disabled",true); 
+	}
+}
+var val_psw = $("#val_psw").validate({
+    errorPlacement: function(error, element) {
+        $('.err_tips').empty();
+        error.appendTo($('.err_tips'));
+    },
+    onfocusout:function(element) { $('.err_tips').empty();$(element).valid(); },
+    submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form
+        var phoneVAL = $("#phone_").val();
+        var yzmcode = $("#phoneYZM").val();
+        var pass = $("#pass1").val();
+	        //认证短信是否OK
+	        var registerCodeURL = "updatePass?code="+yzmcode + "&pass="+pass + "&phone="+phoneVAL;
+	        //提交表单
+	        jQuery.ajax({
+	            type:"get",
+	            dataType:"json",
+	            contentType:'application/json',
+	            async: false,
+	            url:registerCodeURL,
+	            success:function(data){
+	                if(data.ret == "200"){
+	                    layer.open({
+	                        content: '恭喜您修改成功🎉,马上登陆试试看吧',
+	                        yes: function(index, layero){
+	                            window.location.href = 'login?ReturnURL=$!ReturnURL';
+	                        },
+	                        cancel: function(index, layero){
+	                            window.location.href = 'login?ReturnURL=$!ReturnURL';
+	                        }
+	                    });
+	                }else{
+	                	$("#findPsw1").css("display","block");
+	                	$("#findPsw2").css("display","none");
+	                    layer.msg(data.msg, {icon: 2});
+	                }
+	            }
+	        });
+
+    }
+});
+$("#phoneSubmit02").click(function() {
+	if(pass1 && pass2){
+	    if(val_psw.form()){ //若验证通过，则调用修改方法
+	        //提交表单
+	        $("#val_psw").submit();
+	    }
+	}
+});
+
+$('#pass2').on('blur', function(){
+	var pass1 =$("#pass1").val();
+	var pass2 =$("#pass2").val();
+	if(pass2=='' || pass2=='确认密码'){
+		$("#yesPassword").text('密码不能为空');
+		$("#pass2_").addClass('error1');
+		$("#pass2").addClass('error1');
+		$("#pass2_").val('');
+		$("#phoneSubmit02").removeClass("button_yes");
+		$("#phoneSubmit02").attr("disabled",true); 
+	}else if(pass1!=pass2){
+		$("#yesPassword").text('两次密码不一致');
+		$("#pass2_").addClass('error1');
+		$("pass2").addClass('error1');
+		$("#pass2_").val('');
+		$("#phoneSubmit02").removeClass("button_yes");
+		$("#phoneSubmit02").attr("disabled",true); 
+	}else{
+		 $("#pass2_").removeClass("error1");
+		 $("#pass2").removeClass("error1");
+	     $("#yesPassword").text('');
+		 $('#phoneSubmit02').addClass('button_yes'); 
+		 $('#phoneSubmit02').attr("disabled",false); 
+	}
+})
+$('#pass1').on('blur', function(){
+	var pass1 =$("#pass1").val();
+	if(pass1=='' || pass1=='设置密码'){
+		$("#setPassword").text('密码不能为空');
+		$("#pass1_").addClass('error1');
+		$("#pass1").addClass('error1');
+		$("#pass1_").val('');
+		$("#phoneSubmit02").removeClass("button_yes");
+		$("#phoneSubmit02").attr("disabled",true); 
+	}else if(!patrn.test(pass1)){
+        $("#pass1_").addClass('error1');
+        $("#pass1").addClass('error1');
+        $('#setPassword').text("密码必须为拼音+数字组合,请重新输入!");
+        $("#pass1_").val('');
+        $("#phoneSubmit02").removeClass("button_yes");
+		$("#phoneSubmit02").attr("disabled",true); 
+    }else if(pass1.length < 6 || pass1.length>18){
+        $("#pass1").addClass('error1');
+        $("#pass1").addClass('error1');
+        $('#setPassword').text("密码长度必须为6-18位!");
+        $("#pass1_").val('');
+        $("#phoneSubmit02").removeClass("button_yes");
+		$("#phoneSubmit02").attr("disabled",true); 
+    }else{
+        $("#pass1_").removeClass("error1");
+        $("#pass1").removeClass("error1");
+        $("#setPassword").text('');
+        var phoneVAL = $("#phone_").val();
+        var isNameURL = "newPasssword?pass="+pass1 + "&phone="+phoneVAL;
+	    var isNameURLRetStr = sendAjax(isNameURL);
+	    if(isNameURLRetStr != ""){
+	    	$("#pass1").addClass("error1");
+            $("#pass1").addClass("error1");
+            $("#setPassword").text("新密码不能与旧密码重复!");
+            $("#phoneSubmit02").removeClass("button_yes");
+    		$("#phoneSubmit02").attr("disabled",true); 
+	    }
+	}
+})
+
+function PHONE(){
+	$("#findPhone").text("");
+	$("#phone_").removeClass("error1");
+}
+function LOGINPASSWD(){
+	$("#findYzm").text("");
+	$("#yzm_code_").removeClass("error1");
+}
+function PHONEYZM(){
+	$("#smsYZM").text("");
+	$("#phoneYZM").removeClass("error1");
+}
+//判断是否取消忘记密码提交按钮限制
+function buttonJY(){
+	if($("#phone_").val()!='' && $("#phone_").val()!='手机号／邮箱／账户名'){
+		if($("#yzm_code_").val()!='' && $("#yzm_code_").val()!='验证码'){
+			if($("#phoneYZM").val()!='' && $("#phoneYZM").val()!='短信验证码'){
+				$("#findPassword").addClass('button_yes'); 
+				$("#findPassword").attr("disabled",false);
+			}else{
+				$("#findPassword").removeClass("button_yes");
+				$("#findPassword").attr("disabled",true); 
+			}
+		}else{
+			$("#findPassword").removeClass("button_yes");
+			$("#findPassword").attr("disabled",true); 
+		}
+	}else{
+		$("#findPassword").removeClass("button_yes");
+		$("#findPassword").attr("disabled",true); 
+	}
+}
+$('#phone_','#yzm_code_','#phoneYZM').keyup();
+$("#yzm_code_").keyup(function(){buttonJY();});
+$("#phoneYZM").keyup(function(){buttonJY();});
+$("#phone_").keyup(function(){buttonJY();});
+//end
+//校验手机号码
+var findYZM=false;
+var FINDPHONE=false;
+function SmsCodeVali(){
+    var val = $("#phone_").val();
+    var falg = true;
+    FINDPHONE=true;
+    if(val == undefined || val == ""){
+        falg = false;
+        FINDPHONE=false;
+        findMM();
+    }
+    if((val.length == 11 && /^1[34578]\d{9}$/.test(val))){
+    	var isNameURL = "userPhoneCheck?userPhone="+val;
+	    var isNameURLRetStr = sendAjax(isNameURL);
+	    if(isNameURLRetStr != ""){
+	    	$("#findPhone").text("");
+	    	 $("#phone_").removeClass("error1");
+	        falg = true;
+	        findMM();
+	    }else{
+	    	findYZM=false;
+	    	FINDPHONE=false;
+	    	findMM();
+	    	$("#findPhone").text("该手机号未注册!");
+	    }
+    	findMM();
+    }else{
+        falg = false;
+        FINDPHONE=false;
+        findMM();
+    }
+}
+//给获取验证码添加onclick事件
+function findMM(){
+	if(FINDPHONE){
+		if(findYZM){
+			$("#getcode").attr("onclick","fg_txt(0);");
+			$("#getcode").css("color","#02C2A2");
+		}else{
+			$("#getcode").removeAttr("onclick","");
+			$("#getcode").css("color","#9d9d9d");
+		}
+	}else{
+		$("#getcode").removeAttr("onclick","");
+		$("#getcode").css("color","#9d9d9d");
+	}
+}
+$('#yzm_code_').on('blur', function(){
+	if($("#yzm_code_").val()=='' || $("#yzm_code_").val()=='验证码'){
+		$("#findYzm").text('验证码不能为空!');
+		$("#yzm_code_").addClass('error1');
+		$("#yzm_code_").val('');
+	}else{
+		//校验验证码
+	    var yzm_code = $("#yzm_code_").val();
+	    if(yzm_code == undefined || yzm_code == "" || yzm_code.length != 4 ){
+	        falg = false;
+	        findYZM=false;
+	        findMM();
+	    }else{
+	        var checkCodeURL = "checkCode?code="+yzm_code;
+	        var checkCodeURLRetStr = sendAjax(checkCodeURL);
+	        if(checkCodeURLRetStr == ""){
+	        	$("#findYzm").text('');
+	        	findYZM=true;
+	        	findMM();
+	        }else{
+	            falg = false;
+	            $('.err_tips').empty();
+	            $("#findYzm").text(checkCodeURLRetStr);
+	        }
+	    }
+	}
+});
+$('#phoneYZM').on('blur', function(){
+	if($("#phoneYZM").val()=='' || $("#phoneYZM").val()=='短信验证码'){
+		$("#smsYZM").text('短信验证码不能为空!');
+		$("#phoneYZM").addClass('error1');
+		$("#phoneYZM").val('');
+	}
+});
+$('#phone_').on('blur', function(){
+	var val = $("#phone_").val();
+	if(val=='' || val=='手机号'){
+		 $("#findPhone").text("手机号码不能为空!");
+		 $("#phone_").addClass('error1');
+		 $("#phone_").val('');
+		 findMM();
+		 return false;
+	}else{
+		if((val.length == 11 && /^1[34578]\d{9}$/.test(val))){
+			falg = false;
+			var isNameURL = "userPhoneCheck?userPhone="+val;
+		    var isNameURLRetStr = sendAjax(isNameURL);
+		    if(isNameURLRetStr != ""){
+		    	$("#findPhone").text("");
+		    	 $("#phone_").removeClass("error1");
+		        falg = true;
+		        findMM();
+		    }else{
+		    	findYZM=false;
+		    	FINDPHONE=false;
+		    	findMM();
+		    	$("#findPhone").text("该手机号未注册!");
+		    }
+		}else{
+			findMM();
+			FINDPHONE=false;
+			$("#findPhone").text("手机号码格式不正确!");
+		}
+	}
+})
+var val_phone = $("#val_phone").validate({
+    errorPlacement: function(error, element) {
+        $('.err_tips').empty();
+        error.appendTo($('.err_tips'));
+    },
+    onfocusout:function(element) { $('.err_tips').empty();$(element).valid(); },
+    submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form
+        //认证短信验证码是否ok
+        var phoneVAL = $("#phone_").val();
+        var yzmcode = $("#phoneYZM").val();
+        var findPhoneSmsCheckRetStr = sendAjax("findPhoneSmsCheck?phone="+phoneVAL + "&code=" + yzmcode );
+        if(findPhoneSmsCheckRetStr == ""){//认证成功
+            $(".find_tw").removeClass('none_display');
+            $(".find_on").addClass('none_display');
+            $(".AccountShow a").addClass('a_color');
+            $(".AccountShow .p_p").addClass('p_color');
+            $(".AccountShow .line").addClass('line_color');
+            set_passwprd();
+        }else{
+            layer.msg(findPhoneSmsCheckRetStr, {icon: 2});
+        }
+    }
+});
+$("#findPassword").click(function() {
+	if(FINDPHONE){
+		if(findYZM){
+			if($("#phoneYZM").val()!=''){
+				$("#val_phone").submit();
+			}
+		}else{
+			$("#yzm_code_").addClass('error1');
+			$("#findYzm").text('验证码错误!');
+		}
+	}
+}) 
+var newCountdown = 0;
+ //获取验证码
+function fg_txt(obj) {
+	 var phoneVAL;
+	 if(obj==1){
+	     phoneVAL = $("#phone").val();
+	     var phoneSmsURL = "phoneSms?phone="+phoneVAL;
+	 }else{
+		 phoneVAL = $("#phone_").val(); 
+		 var phoneSmsURL = "findPhoneSms?phone="+phoneVAL;
+	 }
+     var phoneSmsURLRetStr = sendAjax(phoneSmsURL);
+     if(phoneSmsURLRetStr == ""){
+         newCountdown = 60;
+         if(obj==1){
+        	 $("#getcode0").removeAttr("onclick","");
+        	 newSettime(newCountdown);
+         }else{
+        	 $("#getcode").removeAttr("onclick","");
+         	newSettime_(newCountdown);
+         }
+     }else{
+         newCountdown = 0;
+         layer.msg(phoneSmsURLRetStr, {icon: 2});
+     }
+ }
+ 
+ //60秒倒计时函数
+ function newSettime_() {
+     if (newCountdown == 0) {
+    	 $("#getcode").text("获取验证码").css("color","#02C2A2");
+    	 $("#getcode").attr("onclick","fg_txt(1);");
+     } else {
+    	 $("#getcode").text("重新发送("+newCountdown+")").css("color","#9d9d9d");
+         newCountdown--;
+	     setTimeout(function() {
+	         newSettime_();
+	     },1000)
+     }
+ }
+ function newSettime() {
+     if (newCountdown == 0) {
+    	 $("#getcode0").text("获取验证码").css("color","#02C2A2");
+    	 $("#getcode0").attr("onclick","fg_txt(0);");
+     } else {
+    	 $("#getcode0").text("重新发送("+newCountdown+")").css("color","#9d9d9d");
+         newCountdown--;
+	     setTimeout(function() {
+	         newSettime();
+	     },1000)
+     }
+ }
+//---------------------------------找回密码js   end--------------------------------
+//公共js部分-----------------------------------------------------------------------------------------------
+//验证邮箱的方法
+function isEmail(useremail) {
+    var validates = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
+    if (validates.test(useremail))
+        return true;
+    else
+        return;
+}
+function isPhone(phoneNum) {
+    var validate = /^(0|86|17951)?(13[0-9]|14[57]|15[012356789]|18[0-9]|14[57]|17[0356789])[0-9]{8}$/;
+    if (validate.test(phoneNum))
+        return true;
+    else
+        return;
+}
+//发送Ajax的方法
+function sendAjax(url){
+    var falg ;
+    jQuery.ajax({
+        type:"get",
+        dataType:"json",
+        contentType:'application/json',
+        async: false,
+        url:url,
+        success:function(data){
+            if(data.ret == "200"){
+                falg =  "";
+            }else{
+                falg = data.msg;
+            }
+        }
+    });
+    return falg;
+}
+//-----------------------------------end-----------------------------
+//图形验证码------一个注册的验证码,一个忘记密码的验证码
+jQuery('#kaptchaImage').on("click",function () {jQuery(this).hide().attr('src', 'code?' + Math.floor(Math.random()*100) ).fadeIn(); });
+jQuery('#kaptchaImage1').on("click",function () {jQuery(this).hide().attr('src', 'code?' + Math.floor(Math.random()*100) ).fadeIn(); });
+//登录js部分
+var phoneTrue = false;
+var passwordTrue = false;
+function loginYZ(){
+	if(phoneTrue && passwordTrue){
+		$("#loginSubmit").addClass('button_yes'); 
+		$("#loginSubmit").attr("disabled",false);
+	}else{
+		$("#loginSubmit").removeClass("button_yes");
+		$("#loginSubmit").attr("disabled",true); 
+	}
+}
+//判断如果用户勾选了记住我的登录状态就在初始化的时候给账号密码框赋值
+if($("#LonginUser").val()!=''){
+	$("#loginUser").val($("#LonginUser").val());
+	$('#loginUser').blur();//触发获取焦点事件
+}
+if($("#LonginPass").val()!=''){
+	$("#loginPass").val($("#LonginPass").val());
+	$('#loginPass').blur();
+	$('#password').focus(); 
+}
+if($("#loginUser").val()=='' || $("#loginUser").val()=="手机号／邮箱／账户名" || $("#loginPass").val()!='' ){
+	$('#loginSubmit').attr("disabled",true); 
+}
+//判断是否都输入取消登录按钮的控制
+/* function keyup(){
+	if($("#loginUser").val()!='' && $("#loginUser").val()!="手机号／邮箱／账户名"){
+		if($("#loginPass").val()!='' ){
+			confirm_();
+		}else{
+			cancel_();
+		}
+	}else{
+		cancel_();
+	}
+}
+function cancel_(){
+	$("#loginSubmit").removeClass("button_yes");
+	$("#loginSubmit").attr("disabled",true); 
+}
+function confirm_(){
+	$("#loginSubmit").addClass('button_yes'); 
+	$("#loginSubmit").attr("disabled",false);
+} */
+//后台处理完判断账号密码不正确之后的提示
+var msg = "$!msg";
+if(msg != ""){
+	if(msg=="用户名不正确"){
+		$("#logninUsers_").empty();
+		$("#logninUsers_").text(msg);
+		$('#loginSubmit').addClass('button_yes'); 
+		$('#loginSubmit').attr("disabled",false); 
+	}
+	if(msg=="密码不正确"){
+		$("#loginPass_").empty();
+		$("#loginPass_").text(msg);
+		$('#loginSubmit').addClass('button_yes'); 
+		$('#loginSubmit').attr("disabled",false); 
+	}
+}
+var validator = $("#val_acclogin").validate({
+  errorPlacement: function(error, element) {
+      $('.err_tip').empty();
+      error.appendTo($('.err_tip'));
+  },
+  onfocusout:function(element) { $(element).valid(); },
+  submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form
+      form.submit();   //提交表单
+  },
+  messages:{
+      loginUser:{
+          required:"用户名不能为空!"
+      },
+      loginPass:{
+          required: "密码不能为空!"
+      }
+  }
+});
+$("#loginSubmit").click(function() {
+	if(validator.form()){ //若验证通过，则调用修改方法
+   	$("#val_acclogin").submit();
+   }
+});
+$('.loginUser').on('blur', function(){
+    var phones = $(this).val();
+    var data = {phones:phones}
+    if(phones == '' || phones =="手机号／邮箱／账户名"){
+        $(".loginUser").addClass('error1');
+        $("#logninUsers_").text("手机号码不能为空!");
+        Reg_Phone = false;
+        $("#loginUser").val('');
+        phoneTrue = false;
+        loginYZ();
+        return false;
+    }else if(!isPhone(phones)){
+        $(".loginUser").addClass('error1');
+        $("#logninUsers_").text("手机号码格式不正确,请重新输入!");
+        Reg_Phone = false;
+        phoneTrue = false;
+        loginYZ();
+    }else{
+    	$("#loginUser").removeClass("error1");
+        $("#logninUsers_").text('');
+        phoneTrue = true;
+        loginYZ();
+    }
+});
+$('.loginPass').on('blur', function(){
+	var fir_pwd = $(this).val();
+    if(fir_pwd == '' ){
+        $("#password").addClass('error1');
+        $("#loginPass").addClass('error1');
+        $("#loginPass_").text("密码不能为空!");
+        $("#password").val('');
+        passwordTrue = false;
+        loginYZ();
+        return false;
+    }else if(!patrn.test(fir_pwd)){
+        $("#password").addClass('error1');
+        $("#loginPass").addClass('error1');
+        $("#loginPass_").text("密码必须为拼音+数字组合,请重新输入!");
+        passwordTrue = false;
+        loginYZ();
+        return false;
+    }else if(fir_pwd.length < 6 || fir_pwd.length>18){
+        $("#password").addClass('error1');
+        $("#loginPass").addClass('error1');
+        $("#loginPass_").text("密码长度必须为6-18位!");
+        passwordTrue = false;
+        loginYZ();
+        return false;
+    }else{
+        $("#password").removeClass("error1");
+        $("#loginPass").removeClass("error1");
+        $("#loginPass_").text('');
+        passwordTrue = true;
+        loginYZ();
+    }
+});
+function LOGINUSER(){
+		$("#loginUser").removeClass("error1");
+	    $("#logninUsers_").text('');
+}
+function LOGINPASS(){
+    $("#loginPass").removeClass("error1");
+    $("#loginPass_").text('');
+	if(phoneTrue){
+		$("#loginSubmit").addClass('button_yes'); 
+		$("#loginSubmit").attr("disabled",false);
+	}
+
+}
+//判断是否需要跳转注册页面
+$(function(){
+	(function ($) {	
+		jQuery.getUrlParam = function (name) {
+		    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r != null) return unescape(r[2]); return null;
+		   }
+		  })(jQuery);
+	var type =jQuery.getUrlParam('type');
+	if(type==2){
+		account_register();
+	}
+})
+//---------------------------------登录js   end--------------------------------
+$(document).keyup(function(event){
+	  if(event.keyCode ==13){
+		  if($(".content_login").css("display")=='block'){
+			  if($("#loginPass_").text()=='' && $("#logninUsers_").text()==''){
+	 			  $("#loginSubmit").trigger("click");
+			  }
+		  }
+		  if($(".content_register").css("display")=='block'){
+			  $("#phone_zhuce").trigger("click");
+		  }
+		  if($("#findPsw1").css("display")=='block'){
+			  if(FINDPHONE){
+					if(findYZM){
+						if($("#phoneYZM").val()!=''){
+							$("#val_phone").submit();
+						}
+					}else{
+						$("#yzm_code_").addClass('error1');
+						$("#findYzm").text('验证码错误!');
+					}
+				}
+		  } 
+		  if($("#findPsw2").css("display")=='block'){
+			  if($("#pass1").val()!='' && $("#pass2").val()!='' && $("#pass1").val()==$("#pass2").val()){
+				  $("#phoneSubmit02").trigger("click");
+			  }
+		  } 
+	  }
+	});
+</script>
+<!-- //点击回车触发提交 -->
+<input type="button" onclick="noClick()" style="margin-top:-1024px;" id="noUseButton" /> 
+
+</body>
+</html>

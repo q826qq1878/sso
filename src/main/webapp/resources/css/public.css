@@ -1,0 +1,52 @@
+/**
+	全局公用样式表
+    by 曹子文
+    */
+@charset "utf-8";
+html{background-color:#FFF;color: #757575;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%}
+body{font-family: "PingFangSC-Light", "PingFang SC","SF Pro SC","SF Pro Text","Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei","Arial",sans-serif;background-color: #FFF ;min-width: 320px;line-height: 1.8; }
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,figure,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;list-style: none;-webkit-tap-highlight-color:transparent}
+hr{/*transform: scaleY(.5)*/;border-top:none;}
+/*h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}*/
+input,textarea,select,code,kbd,pre,samp {font-size:100%;font-family: "PingFangSC-Light", "PingFang SC","SF Pro SC","SF Pro Text","Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei","Arial",sans-serif;}
+input,button,select{border:none;outline: none;-webkit-appearance: none;-moz-appearance: none;border-radius: 0;}/*去除iphone默认input样式*/
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button { }
+html,body,button,input,select,textarea{font-size:16px;color:#000;}
+/*上细线*/
+.top-line:after {position: absolute;content: '';width: 100%;left: 0;top: 0;height: 1px;background-color: #c1c1c1;-webkit-transform: scale(1,.5);transform: scale(1,.5);-webkit-transform-origin: center bottom;transform-origin: center bottom;}
+.bottom-line:before {position: absolute;content: '';width: 100%;left: 0;bottom: 0;height: 1px;background-color: #c1c1c1;-webkit-transform: scale(1,.5);transform: scale(1,.5);-webkit-transform-origin: center bottom;transform-origin: center bottom;}
+.left-line:before {position: absolute;content: '';width: 1px;left: 0;bottom: 0;height: 100%;background-color: #c1c1c1;-webkit-transform: scale(.5,1);transform: scale(.5,1);-webkit-transform-origin: center bottom;transform-origin: center bottom;}
+.right-line:after {position: absolute;content: '';width: 1px;right: 0;bottom: 0;height: 100%;background-color: #c1c1c1;-webkit-transform: scale(.5,1);transform: scale(.5,1);-webkit-transform-origin: center bottom;transform-origin: center bottom;}
+/*禁止文字选中*/
+.cant-sel{-webkit-user-select: none; /* Chrome all / Safari all */-moz-user-select: none; /* Firefox all */-ms-user-select: none; /* IE 10+ */ /* No support for these yet, use at own risk */-o-user-select: none;user-select: none; }
+/*表单验证提示*/
+label.error{color: #fb0808;display:inline-block;font-size:12px;}
+input.error{border:1px solid #fb0808 !important;}
+/*常用颜色以及样式类*/
+.a3{color: #a3a3a3;}
+.b3{color: #b3b3b3;}
+.ffbc{color:#ffbc67}
+.b72{color: #88d7d2;}
+.f867{color: #ffb867;}
+.fourb{color: #4b4b4b;}
+.e1{color:#e1e1e1;}
+a{text-decoration:none;-webkit-tap-highlight-color:rgb(0,0,0);outline:none}
+a:link{color:#000}
+img{border: none;}
+.wrap{width:100%;min-height:100%;overflow:hidden;margin:0;padding:0;}
+.clearfix:after{display:block;clear:both;content:"";visibility:hidden;height:0;}
+.pr{position: relative;}
+.fr{float:right;}
+.fl{float:left;}
+cite,em{font-style:normal;}
+.hide{display: none;}
+.vh{visibility: hidden;}
+.txtleft{text-align: left;}
+.txtright{text-align: right;}
+.txtcenter{text-align: center;}
+/*禁止鼠标点击*/
+.disabled{pointer-events: none;opacity: .5;filter: Alpha(opacity=50);}
+.disabled:hover{cursor:not-allowed;}
+/*产业带色*/
+.cyd-bgcolor{background-color: #53cac3;}
+.cyd-fontcolor{color: #53cac3;}
